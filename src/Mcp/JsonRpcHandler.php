@@ -16,6 +16,22 @@ final class JsonRpcHandler
         $id = $msg['id'] ?? null;
         try {
             $method = $msg['method'] ?? '';
+            if($method === 'initialize') {
+                return [
+                    'jsonrpc' => '2.0',
+                    'id' => $id,
+                    'result' => [
+                        'protocolVersion' => '2025-06-18',
+                        'serverInfo' => [
+                            'name' => 'mcp-public-offer-symfony',
+                            'version' => '0.1.0',
+                        ],
+                        'capabilities' => [
+                            'tools' => new \stdClass(),
+                        ],
+                    ],
+                ];
+            }
             if ($method === 'tools/list') {
                 return ['jsonrpc' => '2.0', 'id' => $id, 'result' => ['tools' => $this->registry->list()]];
             }
