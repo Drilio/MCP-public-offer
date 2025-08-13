@@ -59,6 +59,52 @@ curl -s -X POST http://127.0.0.1:8000/mcp \
 -d '{"jsonrpc":"2.0","id":"2","method":"tools/call","params":{"name":"health.ping","arguments":{"msg":"hello"}}}' | jq
 ```
 
+## Testing with MCP Inspector
+You can use the MCP Inspector tool from the Model Context Protocol to interactively test your server.
+
+### 1. Install MCP Inspector
+
+```
+npx @modelcontextprotocol/inspector
+```
+
+### 2. Start Your Symfony MCP Server
+In a separate terminal, run:
+
+```
+php -S 127.0.0.1:8000 -t public
+```
+
+### 3. Launch MCP Inspector
+
+Run:
+
+```
+mcp-inspector
+```
+
+or:
+
+```
+npx @modelcontextprotocol/inspector
+```
+
+### 4. Configure MCP Inspector 
+
+- Transport Type: Streamable HTTP
+
+- Server URL: http://127.0.0.1:8000/mcp
+
+- Leave authentication fields empty if you have no auth.
+
+Click Connect and you should see:
+
+- The initialize call succeed
+
+- Available tools listed via tools/list
+
+- Ability to call tools such as health.ping.
+
 # License
 
 MIT License
